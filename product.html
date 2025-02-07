@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Product Details</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <!-- Left Panel: Customer Reviews -->
+        <div class="left-panel">
+            <h3>Customer Reviews</h3>
+            <div id="reviews"></div>
+        </div>
+
+        <!-- Centered Product Details -->
+        <div class="right-panel">
+            <div class="product-details">
+                <img id="product-image" alt="Product Image">
+                <h2 id="product-title"></h2>
+                <p id="product-price"></p>
+
+                <h3>Write a Review</h3>
+                <input type="text" id="username" placeholder="Enter your name">
+
+                <!-- Star Rating Input -->
+                <div class="rating">
+                    <span class="star" data-value="1">&#9733;</span>
+                    <span class="star" data-value="2">&#9733;</span>
+                    <span class="star" data-value="3">&#9733;</span>
+                    <span class="star" data-value="4">&#9733;</span>
+                    <span class="star" data-value="5">&#9733;</span>
+                </div>
+
+                <textarea id="review-text" placeholder="Write a review..."></textarea>
+                <button id="submit-review">Submit Review</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const productTitle = urlParams.get("title");
+        document.getElementById("product-title").textContent = productTitle;
+        document.getElementById("product-price").textContent = urlParams.get("price");
+        const imagePath = urlParams.get("image");
+        document.getElementById("product-image").src = imagePath.startsWith("images/") ? imagePath : "images/" + imagePath;
+
+        let selectedRating = 0;
+        const stars = document.querySelectorAll('.star');
+
+        stars.forEach(star => {
+            star.addEventListener('click', function () {
+                selectedRating = this.getAttribute('data-value');
+                stars.forEach(s => s.classList.remove('selected'));
+                for (let i = 0; i < selectedRating; i++) {
+                    stars[i].classList.add('selected');
+                }
+            });
+        });
+
+        function loadReviews() {
+            const savedReviews = JSON.parse(localStorage.getItem(`reviews-${productTitle}`)) || [];
+            const reviewsContainer = document.getElementById("reviews");
+            reviewsContainer.innerHTML = savedReviews.map(review => `
+                <div class="review-box">
+                    <p><strong>${review.username}</strong></p>
+                    <p><span class="review-stars">${'⭐'.repeat(review.rating)}</span></p>
+                    <p>${review.text}</p>
+                </div>
+            `).join("");
+        }
+
+        function addReview() {
+            const username = document.getElementById("username").value;
+            const reviewText = document.getElementById("review-text").value;
+
+            if (username && reviewText && selectedRating > 0) {
+                let reviews = JSON.parse(localStorage.getItem(`reviews-${productTitle}`)) || [];
+                reviews.push({ username, rating: selectedRating, text: reviewText });
+                localStorage.setItem(`reviews-${productTitle}`, JSON.stringify(reviews));
+
+                loadReviews();
+                document.getElementById("username").value = "";
+                document.getElementById("review-text").value = "";
+                selectedRating = 0;
+                stars.forEach(s => s.classList.remove('selected'));
+            } else {
+                alert("Please provide your name, a rating, and a review.");
+            }
+        }
+
+        document.getElementById("submit-review").addEventListener("click", addReview);
+
+        // Load reviews when page loads
+        loadReviews();
+    </script>
+
+</body>
+</html>

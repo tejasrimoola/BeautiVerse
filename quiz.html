@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Beauty Quiz</title>
+    <style>
+        body {
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    background-color: #f8f8f8;
+    padding: 20px;
+}
+
+.quiz-container {
+    max-width: 500px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #d63384;
+}
+
+button {
+    background-color: #d63384;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:disabled {
+    background-color: gray;
+    cursor: not-allowed;
+}
+
+#options button {
+    display: block;
+    width: 100%;
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #d63384;
+    background: white;
+    color: #d63384;
+    cursor: pointer;
+}
+
+#options button:hover, #options button.selected {
+    background-color: #d63384;
+    color: white;
+}
+
+#result-section {
+    display: none;
+}
+
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>AI Beauty Quiz</h1>
+        <p>Answer a few questions and get personalized beauty recommendations!</p>
+
+        <div id="quiz-section">
+            <p id="question">Loading questions...</p>
+            <div id="options"></div>
+            <button id="next-btn" disabled>Next</button>
+        </div>
+
+        <div id="result-section" style="display: none;">
+            <h2>Your Personalized Beauty Recommendation</h2>
+            <p id="recommendation"></p>
+            <button id="restart-btn">Try Again</button>
+        </div>
+    </div>
+
+    <script src="quiz.js"></script>
+</body>
+</html>

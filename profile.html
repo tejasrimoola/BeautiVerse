@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>My Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f8f8;
+            text-align: center;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .profile-container {
+            width: 90%;
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-pic {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #d63384;
+            cursor: pointer;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        h2 {
+            margin: 15px 0;
+            font-size: 22px;
+            color: #333;
+        }
+
+        .profile-info {
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        .profile-info label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .profile-info input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .save-btn {
+            width: 100%;
+            padding: 10px;
+            background: #d63384;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+
+        .save-btn:hover {
+            background: #b52e6d;
+        }
+
+        .dark-mode-btn {
+            margin-top: 15px;
+            padding: 8px 15px;
+            background: #444;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .dark-mode-btn:hover {
+            background: black;
+        }
+
+        /* Dark Mode */
+        body.dark-mode {
+            background: #121212;
+            color: white;
+        }
+
+        .dark-mode .profile-container {
+            background: #1e1e1e;
+            color: white;
+        }
+
+        .dark-mode .profile-info input {
+            background: #222;
+            color: white;
+            border: 1px solid #555;
+        }
+
+        .dark-mode .save-btn {
+            background: #f39c12;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="profile-container">
+        <label for="profile-upload">
+            <img src="default-avatar.png" alt="Profile Picture" class="profile-pic" id="profileImage">
+        </label>
+        <input type="file" id="profile-upload" accept="image/*" onchange="loadFile(event)">
+
+        <h2>My Profile</h2>
+
+        <div class="profile-info">
+            <label>Name:</label>
+            <input type="text" id="profileName" placeholder="Enter your name">
+
+            <label>Email:</label>
+            <input type="email" id="profileEmail" placeholder="Enter your email">
+
+            <label>Phone:</label>
+            <input type="text" id="profilePhone" placeholder="Enter your phone number">
+
+            <label>Address:</label>
+            <input type="text" id="profileAddress" placeholder="Enter your address">
+        </div>
+
+        <button class="save-btn" onclick="saveProfile()">Save Changes</button>
+        <button class="dark-mode-btn" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+    </div>
+
+    <script>
+        // Load Profile Image
+        function loadFile(event) {
+            var image = document.getElementById("profileImage");
+            image.src = URL.createObjectURL(event.target.files[0]);
+            localStorage.setItem("profileImage", image.src);
+        }
+
+        // Save Profile Data
+        function saveProfile() {
+            let name = document.getElementById("profileName").value;
+            let email = document.getElementById("profileEmail").value;
+            let phone = document.getElementById("profilePhone").value;
+            let address = document.getElementById("profileAddress").value;
+
+            if (!name || !email || !phone || !address) {
+                alert("Please fill out all fields!");
+                return;
+            }
+
+            localStorage.setItem("profileName", name);
+            localStorage.setItem("profileEmail", email);
+            localStorage.setItem("profilePhone", phone);
+            localStorage.setItem("profileAddress", address);
+
+            alert("Profile updated successfully!");
+        }
+
+        // Load Saved Data
+        window.onload = function () {
+            if (localStorage.getItem("profileImage")) {
+                document.getElementById("profileImage").src = localStorage.getItem("profileImage");
+            }
+            document.getElementById("profileName").value = localStorage.getItem("profileName") || "";
+            document.getElementById("profileEmail").value = localStorage.getItem("profileEmail") || "";
+            document.getElementById("profilePhone").value = localStorage.getItem("profilePhone") || "";
+            document.getElementById("profileAddress").value = localStorage.getItem("profileAddress") || "";
+        };
+
+        // Toggle Dark Mode
+        function toggleDarkMode() {
+            document.body.classList.toggle("dark-mode");
+        }
+    </script>
+
+</body>
+</html>

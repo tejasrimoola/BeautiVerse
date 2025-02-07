@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Place Your Order</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+      
+    <style>
+        .payment-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+    
+        .payment-option:hover {
+            background-color: #f1f1f1;
+        }
+    
+        .payment-option input {
+            margin-right: 10px;
+        }
+    
+        .payment-option i {
+            font-size: 20px;
+        }
+    
+        .payment-option span {
+            font-weight: bold;
+        }
+    
+        .payment-option input:checked + span {
+            color: #007bff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="order-container">
+        <h2>Order Summary</h2>
+
+        <!-- Order Summary Section -->
+        <div id="order-items">
+            <p>Loading your cart items...</p>
+        </div>
+
+        <!-- Total Price -->
+        <div class="order-total">
+            <h3>Total: <span id="total-price">0</span> Rs</h3>
+        </div>
+
+        <!-- Address Form -->
+        <div class="delivery-details">
+            <h2>Delivery Details</h2>
+            <form id="order-form">
+                <label for="name">Full Name:</label>
+                <input type="text" id="name" required>
+
+                <label for="address">Address:</label>
+                <textarea id="address" required></textarea>
+
+                <label for="phone">Phone Number:</label>
+                <input type="tel" id="phone" required>
+            </form>
+        </div>
+
+        <!-- Payment Options -->
+        <!-- <div class="payment-options">
+            <h2>Select Payment Method</h2>
+            <label>
+                <input type="radio" name="payment" value="cod" checked>
+                <i class="fa-solid fa-truck"></i> Cash on Delivery
+            </label>
+            <label>
+                <input type="radio" name="payment" value="upi">
+                <i class="fa-brands fa-google-pay"></i>
+                <i class="fa-brands fa-phone-pe"></i>
+                <i class="fa-brands fa-paypal"></i> UPI Payment
+            </label>
+            <label>
+                <input type="radio" name="payment" value="card">
+                <i class="fa-solid fa-credit-card"></i> Card Payment
+            </label>
+        </div> -->
+        <label class="payment-option">
+            <input type="radio" name="payment" value="cod" checked>
+            <i class="fa-solid fa-truck"></i>
+            <span>Cash on Delivery</span>
+        </label>
+        <label class="payment-option">
+            <input type="radio" name="payment" value="upi">
+            <i class="fa-brands fa-google-pay"></i>
+            <i class="fa-brands fa-google-wallet"></i>
+            <i class="fa-brands fa-paypal"></i>
+            <span>UPI Payment</span>
+        </label>
+        <label class="payment-option">
+            <input type="radio" name="payment" value="card">
+            <i class="fa-solid fa-credit-card"></i>
+            <span>Card Payment</span>
+        </label>
+    
+        
+
+        <!-- Place Order Button -->
+        <button id="place-order">Place Order</button>
+    </div>
+
+    <script src="order.js"></script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Try-On</title>
+    <link rel="stylesheet" href="style.css">
+    <script defer src="tryon.js"></script>
+</head>
+<body>
+
+    <h1 class="tryon-title">👓 Virtual Try-On</h1>
+
+    
+    <div class="tryon-container">
+        <video id="video" autoplay playsinline></video>
+        <canvas id="canvas"></canvas>
+    </div>
+
+    
+    <div class="product-options">
+        <button class="tryon-btn" onclick="applyFilter('glasses')">🕶️ Try Glasses</button>
+        <button class="tryon-btn" onclick="applyFilter('lipstick')">💄 Try Lipstick</button>
+        <button class="tryon-btn" onclick="applyFilter('foundation')">🎭 Try Foundation</button>
+    </div>
+
+    
+    <a href="index.html" class="back-home">⬅ Back to Home</a>
+
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Beauty Try-On</title>
+    <script defer src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-core"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-converter"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@tensorflow-models/face-landmarks-detection"></script>
+    <style>
+        /* Beautiful Gradient Background */
+body {
+    margin: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Video and Canvas */
+video, canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Product Selection Box */
+.product-selection {
+    position: absolute;
+    top: 10%;
+    right: 5%;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    text-align: center;
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+/* Buttons */
+.product-selection button {
+    background: #ff4081;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.product-selection button:hover {
+    background: #d63384;
+}
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <video id="video" autoplay playsinline></video>
+        <canvas id="canvas"></canvas>
+        
+        <!-- Product Selection -->
+        <div class="product-selection">
+            <h2>Try Your Look 💄👓</h2>
+            <label><input type="radio" name="filter" value="lipstick"> Lipstick 💋</label>
+            <label><input type="radio" name="filter" value="foundation"> Foundation ✨</label>
+            <label><input type="radio" name="filter" value="eyeliner"> Eyeliner 🖤</label>
+            <label><input type="radio" name="filter" value="blush"> Blush 🌸</label>
+            <label><input type="radio" name="filter" value="lenses"> Lenses 👀</label>
+            <label><input type="radio" name="filter" value="hairColor"> Hair Color 🎨</label>
+            <label><input type="radio" name="filter" value="glasses"> Glasses 😎</label>
+            <button id="shade-finder">Find My Shade</button>
+            <button id="toggle-before-after">Before/After</button>
+        </div>
+    </div>
+
+    <script src="tryon.js"></script>
+
+</body>
+</html>
